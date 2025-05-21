@@ -49,11 +49,13 @@ class ParkingLot{
 		for(int i=0;i<parkCount;i++){
 			if(vehicles[i].getLicensePlate()==licensePlate){
 				int j=i+1;
-				while(i<parkCount-1 && j<parkCount-1){
+				while(i<parkCount && j<parkCount){
 					vehicles[i]=vehicles[j];
 					i++;
 					j++;
 				}
+				vehicles[parkCount-1]=null;
+				parkCount=parkCount-1;
 			}
 		}
 	}
