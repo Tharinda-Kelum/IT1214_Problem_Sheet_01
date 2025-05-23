@@ -61,8 +61,16 @@ class Bank{
 	public void withdrawMoney(int accountNumber,double amount){
 		for(int i=0;i<no_of_accounts;i++){
 			if(accountNumber==bankaccounts[i].getAccountNumber() && bankaccounts[i].getBalance()>0){
-				double a=bankaccounts[i].getBalance()-amount;
-				bankaccounts[i].getBalance()=a;
+				/*double a=bankaccounts[i].getBalance()-amount;
+				bankaccounts[i].setBlance(a);*/
+				try{
+					double a=amount;
+					bankaccounts[i].withdraw(a);
+					System.out.println("a");
+				}
+				catch(Exception e){
+					System.out.println("Exception is "+e.getMessage());
+				}
 			}
 			return;
 		}
@@ -86,6 +94,8 @@ class Main{
 		Bank b1=new Bank();
 		b1.addBankAccount(new BankAccount(1001,"Alice",5000.00));
 		b1.addBankAccount(new BankAccount(1002,"Bob",3000.00));
+		b1.displayAllDetails();
+		b1.withdrawMoney(1002,1000.00);
 		b1.displayAllDetails();
 	}
 }
