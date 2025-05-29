@@ -25,9 +25,10 @@ class BankAccount{
 		this.balance=balance;
 	}
 	
-	public void withdraw(double amount)throws Exception{
-		if(balance>0){
+	public void withdraw(double amount,int accountNumber)throws Exception{
+		if(balance>amount){
 			balance=balance-amount;
+			System.out.println("Successfuly withdrew "+amount+" from the account "+accountNumber);
 		}
 		else{
 			throw new Exception("Insufficient balance");
@@ -59,25 +60,24 @@ class Bank{
 	}
 	
 	public void withdrawMoney(int accountNumber,double amount){
+		System.out.println("");
 		for(int i=0;i<no_of_accounts;i++){
 			if(accountNumber==bankaccounts[i].getAccountNumber() && bankaccounts[i].getBalance()>0){
-				/*double a=bankaccounts[i].getBalance()-amount;
-				bankaccounts[i].setBlance(a);*/
 				try{
 					double a=amount;
-					bankaccounts[i].withdraw(a);
-					System.out.println("a");
+					bankaccounts[i].withdraw(a,accountNumber);
 				}
 				catch(Exception e){
 					System.out.println("Exception is "+e.getMessage());
 				}
+				return;
 			}
-			return;
 		}
-		System.out.println("No account found for acc no"+accountNumber);
+		System.out.println("No account found for account no "+accountNumber);
 	}
 	
 	public void displayAllDetails(){
+		System.out.println("");
 		if(no_of_accounts==0){
 			System.out.println("No accounts in the bank.");
 		}
@@ -95,7 +95,9 @@ class Main{
 		b1.addBankAccount(new BankAccount(1001,"Alice",5000.00));
 		b1.addBankAccount(new BankAccount(1002,"Bob",3000.00));
 		b1.displayAllDetails();
+		b1.withdrawMoney(1001,6000.00);
 		b1.withdrawMoney(1002,1000.00);
+		b1.withdrawMoney(1003,1000.00);
 		b1.displayAllDetails();
 	}
 }
